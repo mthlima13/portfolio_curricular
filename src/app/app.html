@@ -1,0 +1,94 @@
+<div class="portfolio-container">
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="logo">{{ name() }}</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <header id="about" class="hero">
+    <div class="hero-content">
+      <span class="greeting">Hello, I'm</span>
+      <h1>{{ name() }}</h1>
+      <h2>{{ role() }}</h2>
+      <p class="bio">{{ bio() }}</p>
+      <div class="cta-buttons">
+        <a href="#contact" class="btn primary">Contact</a>
+        <a href="#projects" class="btn secondary">Projects</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Skills Section -->
+  <section id="skills" class="section skills-section">
+    <h2 class="section-title">Technical Skills</h2>
+    <div class="skills-grid">
+      @for (skill of skills(); track skill.name) {
+        <div class="skill-card">
+          <i [class]="skill.icon + ' skill-icon'"></i>
+          <h3>{{ skill.name }}</h3>
+          <span class="skill-level">{{ skill.level }}</span>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- Experience Section -->
+  <section id="experience" class="section experience-section">
+    <h2 class="section-title">Experience</h2>
+    <div class="timeline">
+      @for (job of experience(); track $index) {
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <span class="year">{{ job.period }}</span>
+            <h3>{{ job.role }}</h3>
+            <h4>{{ job.company }}</h4>
+            <p>{{ job.description }}</p>
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="section projects-section">
+      <h2 class="section-title">Featured Projects</h2>
+      <div class="projects-grid">
+        @for (project of projects(); track $index) {
+          <div class="project-card">
+              <h3>{{ project.title }}</h3>
+              <p>{{ project.description }}</p>
+              <div class="tech-stack">
+                  @for (tech of project.tech; track tech) {
+                      <span class="tech-tag">{{ tech }}</span>
+                  }
+              </div>
+              <a [href]="project.link" class="project-link">View Project &rarr;</a>
+          </div>
+        }
+      </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="contact" class="footer">
+    <div class="footer-content">
+      <h2>Let's Connect</h2>
+      <p class="email-link"><a [href]="'mailto:' + email()">{{ email() }}</a></p>
+      <div class="social-links">
+        @for (social of socials(); track social.name) {
+          <a [href]="social.link" target="_blank" [attr.aria-label]="social.name">
+            <i [class]="social.icon"></i>
+          </a>
+        }
+      </div>
+      <p class="copyright">&copy; {{ currentYear }} {{ name() }}. All rights reserved.</p>
+    </div>
+  </footer>
+</div>
+<router-outlet />
